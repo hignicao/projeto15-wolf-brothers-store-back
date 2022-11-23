@@ -1,3 +1,4 @@
+import { ObjectID } from "bson";
 import { productsCollection } from "../database/db";
 
 export default async function getProducts(req, res) {
@@ -18,4 +19,16 @@ export default async function getFilteredProducts(req, res){
     return res.status(500).send({ message: "Server error" });
    }
    
+}
+
+export default async function getSelectedProduct(req, res){
+    const idProduct = req.params.idProduct;
+
+    try{
+        const product = await productsCollection.findOne({_id:ObjectID(idProduct)});
+        return res.status(200).send({ product  });
+    }catch(err){
+        return res.status(500).send({ message: "Server error" });
+    }
+
 }
