@@ -10,3 +10,5 @@ const productsRouter = Router();
 productsRouter.get("/products", getProducts);
 productsRouter.get("/products/:idProduct", getSelectedProduct);
 productsRouter.get("/filter_products/:name", getFilteredProducts);
+
+export default productsRouter;
