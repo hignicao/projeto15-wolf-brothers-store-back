@@ -11,3 +11,7 @@ try{
 }catch(err){
     console.log(err)
 }
+
+const db = mongoClient.db("wolf_brothers_store");
+const usersCollection = db.collection("users");
+const productsCollection = db.collection("products");
