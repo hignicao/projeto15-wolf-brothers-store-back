@@ -1,7 +1,7 @@
 import { ObjectID } from "bson";
-import { productsCollection } from "../database/db";
+import { productsCollection } from "../database/db.js";
 
-export default async function getProducts(req, res) {
+export  async function getProducts(req, res) {
   try {
     const products = await productsCollection.find().toArray();
     return res.status(200).send({ products });
@@ -10,7 +10,7 @@ export default async function getProducts(req, res) {
   }
 }
 
-export default async function getFilteredProducts(req, res){
+export  async function getFilteredProducts(req, res){
    const name = req.params.name;
    try{
     const filteredProducts = await productsCollection.find({name:{$regex:name, $options:"i"}}).toArray();
@@ -21,7 +21,7 @@ export default async function getFilteredProducts(req, res){
    
 }
 
-export default async function getSelectedProduct(req, res){
+export  async function getSelectedProduct(req, res){
     const idProduct = req.params.idProduct;
 
     try{
