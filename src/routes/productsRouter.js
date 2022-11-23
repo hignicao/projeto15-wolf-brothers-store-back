@@ -10,6 +10,6 @@ const productsRouter = Router();
 
 productsRouter.get("/products", getProducts);
 productsRouter.get("/products/:idProduct", getSelectedProduct);
-productsRouter.get("/filter_products/:name", getFilteredProducts);
-productsRouter.post("/producs", postProduct);
+productsRouter.get("/products/filter/:name", getFilteredProducts);
+productsRouter.post("/products", postProduct);
 export default productsRouter;
