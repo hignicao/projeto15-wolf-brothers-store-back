@@ -6,3 +6,4 @@ const productsRouter = Router();
 
 productsRouter.get("/products",getProducts);
 
+productsRouter.get("/filter_products/:name",getFilteredProducts);
