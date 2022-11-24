@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getProductsInTheCart, postProductToCart } from "../controllers/cartController.js";
+import {
+  deleteProductFromCart,
+  getProductsInTheCart,
+  postProductToCart,
+} from "../controllers/cartController.js";
 import { authValidation } from "../middlewares/authValidationMiddleware.js";
 import { productExistenceValidation } from "../middlewares/productExistenceValidationMiddleware.js";
 
@@ -11,4 +15,5 @@ cartRouter.post(
   postProductToCart
 );
 cartRouter.get("/cart", getProductsInTheCart);
+cartRouter.delete("/cart", productExistenceValidation, deleteProductFromCart);
 export default cartRouter;
