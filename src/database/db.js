@@ -15,3 +15,4 @@ try{
 const db = mongoClient.db("wolf_brothers_store");
 export const usersCollection = db.collection("users");
 export const productsCollection = db.collection("products");
+export const cartCollection = db.collection("cart");
