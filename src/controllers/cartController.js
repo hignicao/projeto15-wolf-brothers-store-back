@@ -12,7 +12,7 @@ export async function postProductToCart(req, res) {
   }
 }
 
-export async function getProductsInTheCart(req,res) {
+export async function getProductsInTheCart(req, res) {
   const user = req.user;
   try {
     const products = await cartCollection.find({ key: user._id }).toArray();
@@ -22,11 +22,12 @@ export async function getProductsInTheCart(req,res) {
   }
 }
 
-export async function deleteProductFromCart(req,res) {
+export async function deleteProductFromCart(req, res) {
   const id = req.params.productId;
 
   try {
-    await cartCollection.deleteOne({ _id: ObjectID(id) });
+   const oie=  await cartCollection.deleteOne({ _id: ObjectID(id) });
+   console.log(oie)
     return res.sendStatus(200);
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
