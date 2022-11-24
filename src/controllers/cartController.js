@@ -1,15 +1,15 @@
-import { ObjectID } from "bson";
-import { productsCollection } from "../database/db";
+import { cartCollection } from "../database/db.js";
 
-export default async function postProductToCart(req, res){
-    const id = req.params.productId;
-    try{
-         const product = await productsCollection.findOne({_id:ObjectID(id)})
-         if(!product){
-            return res.status(404).send({message:"Not found"})
-         }
-    }catch(err){
-        return res.status(500).send({message: "Server error"})
-    }
-
+export async function postProductToCart(req, res) {
+  const product = req.product;
+  const user = req.user;
+  console.log(user, product)
+  try {
+    console.log("entrei")
+    await cartCollection.insertOne({...product, key: user._id });
+    return res.sendStatus(200);
+  } catch (err) {
+    console.log('fudeeo')
+    return res.status(500).send({ message: "Server error" });
+  }
 }
