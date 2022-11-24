@@ -6,7 +6,7 @@ import { productExistenceValidation } from "../middlewares/productExistenceValid
 const cartRouter = Router();
 cartRouter.use(authValidation);
 cartRouter.post(
-  "/cart/add_product/:productId",
+  "/cart/:productId",
   productExistenceValidation,
   postProductToCart
 );
