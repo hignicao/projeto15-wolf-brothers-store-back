@@ -1,3 +1,4 @@
+import { ObjectID } from "bson";
 import { cartCollection } from "../database/db.js";
 
 export async function postProductToCart(req, res) {
@@ -11,12 +12,23 @@ export async function postProductToCart(req, res) {
   }
 }
 
-export async function getProductsInTheCart() {
+export async function getProductsInTheCart(req,res) {
   const user = req.user;
-  try{
-      const products = await cartCollection.find({key:user._id}).toArray();
-      return res.send(products);
-  }catch(err){
+  try {
+    const products = await cartCollection.find({ key: user._id }).toArray();
+    return res.send(products);
+  } catch (err) {
+    return res.status(500).send({ message: "Server error" });
+  }
+}
+
+export async function deleteProductFromCart(req,res) {
+  const id = req.params.productId;
+
+  try {
+    await cartCollection.deleteOne({ _id: ObjectID(id) });
+    return res.sendStatus(200);
+  } catch (err) {
     return res.status(500).send({ message: "Server error" });
   }
 }
