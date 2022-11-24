@@ -14,6 +14,7 @@ export async function signInValidation(req, res, next) {
 		return res.status(401).send("Email ou senha inválidos");
 	}
 
+	delete user.password;
   req.user = user;
 
 	next();

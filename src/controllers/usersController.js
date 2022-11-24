@@ -20,8 +20,6 @@ export async function signIn(req, res) {
 	const token = jwt.sign({ id: user._id }, process.env.SECRET_JWT, { expiresIn: 86400 });
 
 	try {
-		await sessionsCollection.insertOne({ token, userId: user._id });
-		delete user.password;
 		res.send({ ...user, token: token });
 	} catch (error) {
 		console.log(error);
