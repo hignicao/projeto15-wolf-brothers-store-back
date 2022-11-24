@@ -15,5 +15,9 @@ cartRouter.post(
   postProductToCart
 );
 cartRouter.get("/cart", getProductsInTheCart);
-cartRouter.delete("/cart", productExistenceValidation, deleteProductFromCart);
+cartRouter.delete(
+  "/cart/:productId",
+  productExistenceValidation,
+  deleteProductFromCart
+);
 export default cartRouter;
