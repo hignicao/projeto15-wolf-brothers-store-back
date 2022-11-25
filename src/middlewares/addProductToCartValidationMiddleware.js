@@ -1,7 +1,7 @@
 import { ObjectID } from "bson";
 import { productsCollection } from "../database/db.js";
 
-export async function productExistenceValidation(req, res, next) {
+export async function addProductToCartValidation(req, res, next) {
   const id = req.params.productId;
   try {
     const product = await productsCollection.findOne({ _id: ObjectID(id) });

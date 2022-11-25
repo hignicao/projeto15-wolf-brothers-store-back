@@ -4,14 +4,15 @@ import {
   getProductsInTheCart,
   postProductToCart,
 } from "../controllers/cartController.js";
+import { addProductToCartValidation } from "../middlewares/addProductToCartValidationMiddleware.js";
 import { authValidation } from "../middlewares/authValidationMiddleware.js";
-import { productExistenceValidation } from "../middlewares/productExistenceValidationMiddleware.js";
+
 
 const cartRouter = Router();
 cartRouter.use(authValidation);
 cartRouter.post(
   "/cart/:productId",
-  productExistenceValidation,
+ addProductToCartValidation,
   postProductToCart
 );
 cartRouter.get("/cart", getProductsInTheCart);
