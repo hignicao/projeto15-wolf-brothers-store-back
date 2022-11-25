@@ -15,9 +15,22 @@ export async function postProductToCart(req, res) {
 
 export async function getProductsInTheCart(req, res) {
   const user = req.user;
+
+  const computeTotalPurchaseValue = (arr) => {
+    const totalValuePerItem = arr.map(
+      (element) => element.price * element.quantity
+    );
+    const totalPurchaseValue = totalValuePerItem.reduce(
+      (prev, current) => prev + current,
+      0
+    );
+    return totalPurchaseValue;
+  };
+
   try {
     const products = await cartCollection.find({ key: user._id }).toArray();
-    return res.send(products);
+    const purschasePrice = computeTotalPurchaseValue(products);
+    return res.send({ products, purschasePrice });
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
   }
