@@ -21,4 +21,5 @@ cartRouter.delete(
   deleteProductfromCartValidation,
   deleteProductFromCart
 );
+cartRouter.post("/cart/checkout")
 export default cartRouter;
