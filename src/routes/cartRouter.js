@@ -6,7 +6,6 @@ import {
 } from "../controllers/cartController.js";
 import { addProductToCartValidation } from "../middlewares/addProductToCartValidationMiddleware.js";
 import { authValidation } from "../middlewares/authValidationMiddleware.js";
-import { cartCheckout } from "../middlewares/cartCheckoutMiddleware.js";
 import { deleteProductfromCartValidation } from "../middlewares/deleteProductFromCartValidationMiddleware.js";
 
 
@@ -23,5 +22,4 @@ cartRouter.delete(
   deleteProductfromCartValidation,
   deleteProductFromCart
 );
-cartRouter.post("/cart/checkout",cartCheckout)
 export default cartRouter;
