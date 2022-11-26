@@ -46,3 +46,13 @@ export async function postProduct(req, res) {
     return res.status(500).send({ message: "Server error" });
   }
 }
+
+export async function getProductsByCategory(req, res){
+  const type = req.params.type
+     try{
+      const products = await  productsCollection.find({type}).toArray();
+      return res.status(200).send(products)
+     }catch(err){
+      return res.status(500).send({ message: "Server error" });
+     }
+}

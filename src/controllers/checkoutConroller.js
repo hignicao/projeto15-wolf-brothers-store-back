@@ -1,4 +1,7 @@
-import { cartCollection, completedPurchasesCollection } from "../database/db.js";
+import {
+  cartCollection,
+  completedPurchasesCollection,
+} from "../database/db.js";
 
 export async function postPurchase(req, res) {
   const infos = req.infos;
@@ -13,7 +16,7 @@ export async function postPurchase(req, res) {
       boughtProducts,
       ...infos,
     });
-    console.log({ key: user._id, boughtProducts, ...infos });
+    await cartCollection.deleteMany({ key: user._id });
     return res.send({ key: user._id, boughtProducts, ...infos });
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
