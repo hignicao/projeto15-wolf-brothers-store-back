@@ -29,8 +29,8 @@ export async function getProductsInTheCart(req, res) {
 
   try {
     const products = await cartCollection.find({ key: user._id }).toArray();
-    const purschasePrice = computeTotalPurchaseValue(products);
-    return res.send({ products, purschasePrice });
+    const purchasePrice = computeTotalPurchaseValue(products);
+    return res.send({ products, purchasePrice });
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
   }
