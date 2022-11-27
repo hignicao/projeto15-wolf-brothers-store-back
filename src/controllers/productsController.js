@@ -47,25 +47,26 @@ export async function postProduct(req, res) {
   }
 }
 
-export async function getProductsByCategory(req, res){
-  const type = req.params.type
-  console.log(type)
-     try{
-      const products = await  productsCollection.find({type}).toArray();
-      return res.status(200).send(products)
-     }catch(err){
-      return res.status(500).send({ message: "Server error" });
-     }
+export async function getProductsByCategory(req, res) {
+  const { gender, type } = req.params;
+
+  try {
+    const products = await productsCollection
+      .find({ $and: [{ type }, { gender }] })
+      .toArray();
+    return res.status(200).send(products);
+  } catch (err) {
+    return res.status(500).send({ message: "Server error" });
+  }
 }
 
-export async function deleteProd(req,res,next){
-  try{
-    const id = req.params.id
-    console.log(id)
-    await  productsCollection.deleteOne({_id:ObjectID(id)});
-    res.send('ok')
-  }catch(err){
-    return res.send("f")
+export async function deleteProd(req, res, next) {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    await productsCollection.deleteOne({ _id: ObjectID(id) });
+    res.send("ok");
+  } catch (err) {
+    return res.send("f");
   }
-  
 }
