@@ -12,7 +12,7 @@ export async function getProducts(req, res) {
 
 export async function getFilteredProducts(req, res) {
   const name = req.params.name;
- console.log('oieee')
+
   try {
     const filteredProducts = await productsCollection
       .find({ name: { $regex: name, $options: "i" } })
