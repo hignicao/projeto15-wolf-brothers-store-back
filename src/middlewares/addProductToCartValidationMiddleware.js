@@ -19,7 +19,7 @@ export async function addProductToCartValidation(req, res, next) {
 		if (!product) {
 			return res.status(404).send({ message: "Not found" });
 		}
-
+        req.productKey = product._id
 		delete product._id;
 		req.product = product;
 		req.quantity = body.quantity;
