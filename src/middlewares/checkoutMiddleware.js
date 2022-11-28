@@ -3,11 +3,14 @@ import { purchaseCompletionInformationSchema } from "../schemas/purchaseCompleti
 export function checkout(req, res, next) {
   const body = req.body;
 
-  const { error } = purchaseCompletionInformationSchema.validate(body);
+  const { error } = purchaseCompletionInformationSchema.validate(body, { abortEarly: false });
 
-  if (error) {
-    return res.sendStatus(422);
-  }
+	if (error) {
+		const errors = error.details.map((err) => err.message);
+		return res.status(400).send(errors);
+	}
+
   req.purchaseInfo = body;
+
   next();
 }

@@ -1,10 +1,13 @@
 import { Router } from "express";
-import { postPurchase } from "../controllers/checkoutConroller.js";
+import { getOrders, postPurchase } from "../controllers/checkoutController.js";
 import { authValidation } from "../middlewares/authValidationMiddleware.js";
 import { checkout } from "../middlewares/checkoutMiddleware.js";
 
 const checkoutRouter = Router();
-authValidation;
-checkoutRouter.post("/checkout", authValidation, checkout, postPurchase);
+
+checkoutRouter.use(authValidation);
+
+checkoutRouter.post("/checkout", checkout, postPurchase);
+checkoutRouter.get("/checkout", getOrders);
 
 export default checkoutRouter;
