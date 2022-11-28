@@ -2,9 +2,14 @@ import { ObjectID } from "bson";
 import { productsCollection } from "../database/db.js";
 
 export async function getProducts(req, res) {
+  const page = Number(req.query.page);
+  const limit = 12;
+
   try {
-    const products = await productsCollection.find().toArray();
-    return res.status(200).send({ products });
+    const array = await productsCollection.find().toArray();
+    const products = array.slice((page - 1) * limit, limit * page);
+
+    return res.status(200).send({ products, totalProducts:array.length });
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
   }
@@ -39,6 +44,7 @@ export async function getSelectedProduct(req, res) {
 
 export async function postProduct(req, res) {
   const product = req.body;
+
   try {
     await productsCollection.insertOne(product);
     res.status(201).send({ message: "Successfully created" });
@@ -60,7 +66,7 @@ export async function getProductsByCategory(req, res) {
   }
 }
 
-export async function deleteProd(req, res, next) {
+export async function deleteProd(req, res) {
   try {
     const id = req.params.id;
     console.log(id);

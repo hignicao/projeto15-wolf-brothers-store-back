@@ -15,7 +15,7 @@ export async function signInValidation(req, res, next) {
 	}
 
 	delete user.password;
-  req.user = user;
+	req.user = user;
 
 	next();
 }
