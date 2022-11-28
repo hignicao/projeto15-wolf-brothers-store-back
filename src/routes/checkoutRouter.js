@@ -8,6 +8,6 @@ const checkoutRouter = Router();
 checkoutRouter.use(authValidation);
 
 checkoutRouter.post("/checkout", checkout, postPurchase);
-checkoutRouter.get("/checkout", getOrders);
+checkoutRouter.get("/orders", getOrders);
 
 export default checkoutRouter;
