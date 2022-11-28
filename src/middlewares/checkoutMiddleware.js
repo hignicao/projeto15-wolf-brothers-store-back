@@ -2,10 +2,12 @@ import { purchaseCompletionInformationSchema } from "../schemas/purchaseCompleti
 
 export function checkout(req, res, next) {
   const body = req.body;
-  const { error } =purchaseCompletionInformationSchema.validate(body);
+
+  const { error } = purchaseCompletionInformationSchema.validate(body);
+
   if (error) {
     return res.sendStatus(422);
   }
-  req.infos = body;
+  req.purchaseInfo = body;
   next();
 }
