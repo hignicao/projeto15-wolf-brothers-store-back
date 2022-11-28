@@ -12,7 +12,6 @@ export async function postProductToCart(req, res) {
 
     if (alreadyInCart) {
       const currentQuantity = quantity + alreadyInCart.quantity;
-
       await cartCollection.updateOne(
         { productKey },
         { $set: { quantity: currentQuantity } }
