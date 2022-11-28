@@ -4,11 +4,11 @@ import { productsCollection } from "../database/db.js";
 export async function getProducts(req, res) {
 	const page = Number(req.query.page);
 	const limit = 12;
-  console.log('ENTREEI',page)
+
 	try {
 		const productsInStock = await productsCollection.find().toArray();
 		const products = productsInStock.slice((page-1)*limit,page*limit)
-		console.log(productsInStock)
+		
 		return res.status(200).send({ products, totalProducts:productsInStock.length });
 	} catch (err) {
 		return res.status(500).send({ message: "Server error" });

@@ -8,12 +8,14 @@ export async function postProductToCart(req, res) {
   const quantity = Number(req.quantity);
 
   try {
-    const alreadyInCart = await cartCollection.findOne({ productKey });
-
+    const alreadyInCart = await cartCollection.findOne({
+      $and: [{ productKey }, { key: user._id }],
+    });
+  
     if (alreadyInCart) {
       const currentQuantity = quantity + alreadyInCart.quantity;
       await cartCollection.updateOne(
-        { productKey },
+        {$and: [{ productKey }, { key: user._id }]},
         { $set: { quantity: currentQuantity } }
       );
 
@@ -34,7 +36,7 @@ export async function postProductToCart(req, res) {
 
 export async function getProductsInTheCart(req, res) {
   const user = req.user;
-
+  
   const computeTotalPurchaseValue = (arr) => {
     const totalValuePerItem = arr.map(
       (element) => element.price * element.quantity
@@ -57,10 +59,11 @@ export async function getProductsInTheCart(req, res) {
 
 export async function deleteProductFromCart(req, res) {
   const id = req.params.productId;
-
+  const user = req.user;
+console.log(user)
   try {
-    const oie = await cartCollection.deleteOne({ _id: ObjectID(id) });
-    console.log(oie);
+   await cartCollection.deleteOne({ $and: [{_id: ObjectID(id) }, { key: user._id }]});
+
     return res.sendStatus(200);
   } catch (err) {
     return res.status(500).send({ message: "Server error" });
